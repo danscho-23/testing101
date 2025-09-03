@@ -3,128 +3,130 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daigo's Space Odyssey Portfolio</title>
+<title>Daigo-sama | Space Odyssey Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  body {
-    margin: 0;
-    font-family: 'Helvetica Neue', sans-serif;
-    color: #f0f0f0;
-    background: linear-gradient(to bottom, #000000, #0a0a0a);
-    overflow-x: hidden;
-  }
+  /* Base Styles */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; font-family: 'Orbitron', sans-serif; overflow-x: hidden; background: radial-gradient(#000010, #000022); color: #e0e0ff; }
 
-  .stars {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: url('https://www.transparenttextures.com/patterns/stardust.png');
-    z-index: -1;
-    animation: twinkle 10s infinite alternate;
-  }
+  /* Dock on left */
+  #dock { position: fixed; top: 0; left: 0; width: 80px; height: 100%; background: rgba(10,10,30,0.85); display: flex; flex-direction: column; align-items: center; padding-top: 20px; z-index: 1000; }
+  #dock img { width: 50px; margin: 20px 0; cursor: pointer; transition: transform 0.3s; }
+  #dock img:hover { transform: scale(1.2); }
 
-  @keyframes twinkle {
-    0% {opacity: 0.7;}
-    50% {opacity: 1;}
-    100% {opacity: 0.7;}
-  }
+  /* Sections */
+  section { padding: 100px 100px 100px 120px; min-height: 100vh; position: relative; }
+  .section-title { font-size: 3em; margin-bottom: 20px; animation: fadeInDown 2s ease forwards; opacity: 0; }
+  .section-content { display: flex; flex-wrap: wrap; gap: 20px; animation: fadeIn 2s ease forwards; opacity: 0; }
 
-  header {
-    text-align: center;
-    padding: 4rem 1rem 2rem 1rem;
-  }
+  /* Project Card */
+  .project { background: rgba(10,10,30,0.8); border: 1px solid #4040ff55; border-radius: 15px; padding: 20px; flex: 1 1 calc(33% - 40px); min-width: 280px; backdrop-filter: blur(10px); transition: transform 0.5s, box-shadow 0.5s; }
+  .project:hover { transform: translateY(-10px); box-shadow: 0 0 50px #4040ffaa; }
+  .project img { width: 100%; border-radius: 10px; margin-bottom: 10px; }
+  .project-title { font-size: 1.5em; margin-bottom: 10px; }
 
-  h1 {
-    font-size: 3rem;
-    font-weight: 300;
-    letter-spacing: 0.2rem;
-    text-transform: uppercase;
-  }
+  /* Animated "What I Do" */
+  #whatido { display: flex; flex-direction: column; gap: 20px; }
+  .skill { font-size: 1.5em; color: #a0d0ff; animation: glowText 3s infinite alternate; }
 
-  h2 {
-    font-weight: 200;
-    font-size: 1.5rem;
-    margin-top: 0;
-  }
+  /* Starfield */
+  #stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
 
-  .projects {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-    padding: 2rem;
-  }
-
-  .project-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    width: 300px;
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 1rem;
-    transition: transform 0.6s ease, box-shadow 0.6s ease;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .project-card:hover {
-    transform: translateY(-20px) rotateX(10deg);
-    box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
-  }
-
-  .project-card img {
-    width: 80%;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    animation: float 4s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-  }
-
-  footer {
-    text-align: center;
-    padding: 3rem 1rem;
-    font-size: 0.9rem;
-    color: #888;
-  }
+  /* Animations */
+  @keyframes fadeInDown { 0% { opacity: 0; transform: translateY(-50px); } 100% { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+  @keyframes glowText { 0% { text-shadow: 0 0 5px #40f, 0 0 10px #80f; } 100% { text-shadow: 0 0 20px #80f, 0 0 40px #40f; } }
 </style>
 </head>
 <body>
-  <div class="stars"></div>
 
-  <header>
-    <h1>Daigo's Odyssey</h1>
-    <h2>Exploring IT & Cybersecurity Projects Beyond the Horizon</h2>
-  </header>
+<div id="dock">
+  <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" title="Home" onclick="document.getElementById('home').scrollIntoView({behavior: 'smooth'});">
+  <img src="https://img.icons8.com/ios-filled/50/ffffff/briefcase.png" title="Projects" onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'});">
+  <img src="https://img.icons8.com/ios-filled/50/ffffff/rocket.png" title="Skills" onclick="document.getElementById('skills').scrollIntoView({behavior: 'smooth'});">
+  <img src="https://img.icons8.com/ios-filled/50/ffffff/contact-card.png" title="Contact" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'});">
+</div>
 
-  <section class="projects">
-    <div class="project-card">
-      <img src="https://via.placeholder.com/250x150.png?text=IT+Helpdesk+Portal" alt="Project 1">
-      <h3>IT Helpdesk Portal</h3>
-      <p>Interactive system to manage tickets efficiently with automated prioritization.</p>
-    </div>
-    <div class="project-card">
-      <img src="https://via.placeholder.com/250x150.png?text=Cybersecurity+Tool" alt="Project 2">
-      <h3>Cybersecurity Tool</h3>
-      <p>Real-time threat detection dashboard with network visualization.</p>
-    </div>
-    <div class="project-card">
-      <img src="https://via.placeholder.com/250x150.png?text=Motorsport+Telemetry" alt="Project 3">
-      <h3>Motorsport Telemetry</h3>
-      <p>Data analytics for high-performance vehicles with live dashboards.</p>
-    </div>
-  </section>
+<div id="stars"></div>
 
-  <footer>
-    &copy; 2025 Daigo. Inspired by a bunch of things, honestly.
-  </footer>
+<section id="home">
+  <h1 class="section-title">Welcome to Daigo-sama's Space Odyssey Portfolio</h1>
+  <p class="section-content">Explore IT, cybersecurity, and motorsport projects through an immersive cosmic journey.</p>
+</section>
+
+<section id="whatido">
+  <h2 class="section-title">What I Do</h2>
+  <div id="skills">
+    <div class="skill">IT Helpdesk & Support</div>
+    <div class="skill">Cybersecurity & Ethical Hacking</div>
+    <div class="skill">Network Administration</div>
+    <div class="skill">Web Development & Design</div>
+    <div class="skill">Automation & Cloud Solutions</div>
+    <div class="skill">Motorsports Data Analysis</div>
+  </div>
+</section>
+
+<section id="projects">
+  <h2 class="section-title">Projects</h2>
+  <div class="section-content">
+    <div class="project">
+      <img src="https://source.unsplash.com/400x200/?cybersecurity" alt="Cybersecurity Project">
+      <div class="project-title">Network Security Simulation</div>
+      <p>Designed an advanced simulated environment to practice intrusion detection and firewall setups.</p>
+    </div>
+    <div class="project">
+      <img src="https://source.unsplash.com/400x200/?server-room" alt="IT Helpdesk Project">
+      <div class="project-title">Automated IT Ticket System</div>
+      <p>Implemented a streamlined ticketing system for IT support requests, improving response times by 40%.</p>
+    </div>
+    <div class="project">
+      <img src="https://source.unsplash.com/400x200/?motorsport" alt="Motorsport Project">
+      <div class="project-title">Motorsport Telemetry Dashboard</div>
+      <p>Developed a dashboard to monitor live car telemetry data and optimize race strategy in real time.</p>
+    </div>
+    <div class="project">
+      <img src="https://source.unsplash.com/400x200/?space" alt="Space IT Project">
+      <div class="project-title">Space Data Visualization</div>
+      <p>Created immersive 3D visualizations for satellite data streams, enhancing analysis efficiency.</p>
+    </div>
+    <div class="project">
+      <img src="https://source.unsplash.com/400x200/?computer" alt="Web Project">
+      <div class="project-title">Interactive Personal Website</div>
+      <p>Designed this very portfolio with full animations, responsive design, and a cosmic aesthetic.</p>
+    </div>
+    <div class="project">
+      <img src="https://source.unsplash.com/400x200/?rocket" alt="Automation Project">
+      <div class="project-title">Automation Scripts Suite</div>
+      <p>Implemented Python and Bash scripts for automating system checks and cloud deployment tasks.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2 class="section-title">Contact Me</h2>
+  <p class="section-content">Email: daigo@example.com<br>LinkedIn: <a href="#" style="color:#a0d0ff;">linkedin.com/in/daigo</a><br>GitHub: <a href="#" style="color:#a0d0ff;">github.com/daigo</a></p>
+</section>
+
+<script>
+  // Starfield animation
+  const stars = document.getElementById('stars');
+  const numStars = 200;
+  for(let i=0;i<numStars;i++){
+    let star = document.createElement('div');
+    star.style.position = 'absolute';
+    star.style.width = `${Math.random()*2+1}px`;
+    star.style.height = star.style.width;
+    star.style.background = 'white';
+    star.style.top = `${Math.random()*100}%`;
+    star.style.left = `${Math.random()*100}%`;
+    star.style.opacity = Math.random();
+    star.style.borderRadius = '50%';
+    star.style.animation = `twinkle ${Math.random()*5+2}s infinite alternate`;
+    stars.appendChild(star);
+  }
+</script>
+<style>@keyframes twinkle {0%{opacity:0.2}100%{opacity:1}}</style>
+
 </body>
 </html>
