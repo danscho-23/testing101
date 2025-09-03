@@ -535,8 +535,7 @@
     setActive();
     window.addEventListener('keydown', (e)=>{
       const k = e.key; if(/[1-6]/.test(k)){ const el = document.querySelector(`.dock a[data-key="${k}"]`); if(el){ e.preventDefault(); el.click(); }}
-    }
-      });
+    });
 
     // smooth scroll within custom viewport
     links.forEach(a=>{
