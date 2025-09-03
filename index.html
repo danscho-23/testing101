@@ -1,231 +1,569 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daigo-sama's Space Odyssey Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  body {
-    margin: 0;
-    font-family: 'Orbitron', sans-serif;
-    background: radial-gradient(ellipse at bottom, #0b0c10 0%, #1f2833 100%);
-    color: #c5c6c7;
-    overflow-x: hidden;
-  }
-  .dock {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 80px;
-    height: 100vh;
-    background: rgba(15, 15, 20, 0.85);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 20px;
-    z-index: 1000;
-  }
-  .dock a {
-    margin: 20px 0;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #1f2833;
-    border-radius: 50%;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  .dock a:hover {
-    transform: scale(1.3);
-    box-shadow: 0 0 20px #66fcf1, 0 0 40px #45a29e;
-  }
-  .content {
-    margin-left: 100px;
-    padding: 50px;
-  }
-  section {
-    min-height: 100vh;
-    position: relative;
-  }
-  .starfield {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: url('https://i.imgur.com/9lQZfXh.jpg') repeat;
-    background-size: cover;
-    z-index: -1;
-    animation: starsMove 200s linear infinite;
-  }
-  @keyframes starsMove {
-    from {background-position: 0 0;}
-    to {background-position: -10000px 5000px;}
-  }
-  .section-title {
-    font-size: 3em;
-    margin-bottom: 20px;
-    color: #66fcf1;
-    text-shadow: 0 0 20px #45a29e;
-  }
-  .what-i-do {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-  }
-  .card {
-    background: rgba(31, 40, 51, 0.85);
-    border-radius: 20px;
-    padding: 20px;
-    width: 250px;
-    text-align: center;
-    transition: transform 0.5s, box-shadow 0.5s;
-  }
-  .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 40px #66fcf1;
-  }
-  .card img {
-    width: 100%;
-    border-radius: 15px;
-    margin-bottom: 15px;
-  }
-  .projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-  }
-  .project-card {
-    background: rgba(31, 40, 51, 0.9);
-    border-radius: 20px;
-    overflow: hidden;
-    transition: transform 0.5s, box-shadow 0.5s;
-    cursor: pointer;
-  }
-  .project-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 50px #66fcf1;
-  }
-  .project-card img {
-    width: 100%;
-    display: block;
-  }
-  .project-card .info {
-    padding: 20px;
-  }
-  .glow-text {
-    color: #66fcf1;
-    text-shadow: 0 0 10px #66fcf1, 0 0 20px #45a29e;
-  }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daniel Chattar — Mission Ops Portfolio</title>
+  <meta name="description" content="Space‑Odyssey inspired personal site blending motorsports, aerospace and IT/cyber projects." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0f14;           /* deep space */
+      --panel:#0f1520;        /* cockpit panel */
+      --panel-2:#0b1220;      /* secondary panel */
+      --ink:#cfe7ff;          /* primary text */
+      --muted:#92a4b8;        /* secondary text */
+      --accent:#7df9ff;       /* cyan accent */
+      --accent-2:#ffd166;     /* amber accent */
+      --accent-3:#ff6b6b;     /* radar red */
+      --success:#4bf3a2;      /* ok green */
+      --grid:rgba(125,249,255,.12);
+      --glass:rgba(255,255,255,.06);
+      --blur:10px;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:radial-gradient(1200px 800px at 60% -20%, #17202e 0%, var(--bg) 55%) fixed;
+      color:var(--ink);
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      line-height:1.6;
+      overflow:hidden; /* we manage scrolling in #viewport */
+    }
+
+    /* ====== STARFIELD LAYERS ====== */
+    .stars, .stars2, .stars3{
+      position:fixed; inset:0; background-repeat:repeat; z-index:-3;
+      image-rendering:pixelated; pointer-events:none;
+    }
+    .stars{ background-image:url('data:image/svg+xml;utf8,\
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">\
+        <rect fill="transparent" width="600" height="600"/>\
+        <g fill="white" opacity="0.7">\
+          <circle cx="30" cy="40" r="1"/>\
+          <circle cx="150" cy="90" r="1"/>\
+          <circle cx="300" cy="120" r="1"/>\
+          <circle cx="500" cy="60" r="1"/>\
+          <circle cx="220" cy="300" r="1"/>\
+          <circle cx="560" cy="340" r="1"/>\
+          <circle cx="80" cy="400" r="1"/>\
+          <circle cx="360" cy="500" r="1"/>\
+        </g>\
+      </svg>'); animation: drift 120s linear infinite; opacity:.55 }
+    .stars2{ background-image:url('data:image/svg+xml;utf8,\
+      <svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">\
+        <rect fill="transparent" width="800" height="800"/>\
+        <g fill="white" opacity="0.45">\
+          <circle cx="60" cy="60" r="1"/>\
+          <circle cx="420" cy="150" r="1"/>\
+          <circle cx="720" cy="260" r="1"/>\
+          <circle cx="300" cy="460" r="1"/>\
+          <circle cx="120" cy="600" r="1"/>\
+          <circle cx="500" cy="720" r="1"/>\
+        </g>\
+      </svg>'); animation: drift 180s linear infinite reverse; opacity:.4; z-index:-4 }
+    .stars3{ background-image:url('data:image/svg+xml;utf8,\
+      <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">\
+        <rect fill="transparent" width="1000" height="1000"/>\
+        <g fill="white" opacity="0.25">\
+          <circle cx="130" cy="90" r="1"/>\
+          <circle cx="800" cy="120" r="1"/>\
+          <circle cx="640" cy="300" r="1"/>\
+          <circle cx="340" cy="700" r="1"/>\
+          <circle cx="940" cy="860" r="1"/>\
+        </g>\
+      </svg>'); animation: drift 240s linear infinite; opacity:.25; z-index:-5 }
+    @keyframes drift{ from{background-position:0 0} to{background-position:-1600px -800px}}
+
+    /* ====== LAYOUT ====== */
+    #viewport{
+      position:relative; height:100%; overflow:auto; scroll-behavior:smooth;
+      padding-left:92px; /* room for dock */
+    }
+    .dock{
+      position:fixed; inset:0 auto 0 0; width:92px; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));
+      border-right:1px solid rgba(125,249,255,.18); backdrop-filter: blur(var(--blur)); z-index:20;
+      display:flex; flex-direction:column; align-items:center; padding:14px 10px; gap:14px;
+      box-shadow:var(--shadow);
+    }
+    .dock .logo{
+      display:flex; align-items:center; justify-content:center; width:64px; height:64px; border-radius:12px;
+      background:linear-gradient(145deg, #0f1a28, #0b0f14); border:1px solid var(--grid);
+      box-shadow: inset 0 0 24px rgba(125,249,255,.15), 0 10px 30px rgba(0,0,0,.35);
+      font-family:Rajdhani, sans-serif; font-size:18px; letter-spacing:1px; color:var(--accent);
+    }
+    .dock .nav{
+      display:flex; flex-direction:column; gap:10px; margin-top:6px;
+    }
+    .dock a{
+      display:grid; grid-template-columns: 1fr; place-items:center; width:64px; height:64px; border-radius:12px;
+      background:var(--panel); border:1px solid var(--grid); color:var(--muted); text-decoration:none;
+      transition:.25s transform, .25s box-shadow, .25s color, .25s border-color, .25s background;
+    }
+    .dock a:hover{ transform:translateY(-2px); color:var(--ink); box-shadow:0 8px 16px rgba(0,0,0,.35), inset 0 0 28px rgba(125,249,255,.08)}
+    .dock a.active{ color:var(--accent); border-color:rgba(125,249,255,.35); background:linear-gradient(180deg, rgba(125,249,255,.06), rgba(125,249,255,0)); }
+    .dock .sep{ width:40px; height:1px; background:var(--grid); margin:6px 0 }
+    .dock .foot{ margin-top:auto; display:flex; flex-direction:column; gap:10px }
+
+    .section{ min-height:100vh; padding:64px clamp(24px, 3.5vw, 60px); display:grid; align-items:center; }
+    .wrap{ width:min(1240px, 100%); margin:0 auto; }
+
+    /* ====== COCKPIT HEADER ====== */
+    .hud{
+      display:grid; grid-template-columns: 1.3fr 1fr; gap:32px; align-items:stretch;
+    }
+    @media (max-width: 1020px){ .hud{ grid-template-columns:1fr; } }
+
+    .glass{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid var(--grid); border-radius:var(--radius); box-shadow: var(--shadow);
+      backdrop-filter: blur(var(--blur));
+    }
+
+    .panel{
+      position:relative; padding:28px; overflow:hidden;
+    }
+    .panel::before{
+      content:""; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none;
+      background: radial-gradient(600px 120px at 30% -20%, rgba(125,249,255,.18), transparent 60%),
+                  radial-gradient(600px 120px at 80% -10%, rgba(255,209,102,.12), transparent 60%);
+      mask: linear-gradient(#000, transparent 60%);
+    }
+
+    .title-xl{ font-family:Rajdhani, sans-serif; font-size:clamp(36px, 5vw, 72px); line-height:1.05; letter-spacing:.6px; margin:0 0 6px }
+    .subtitle{ color:var(--muted); margin:0 0 18px; font-size:clamp(16px, 2.2vw, 20px) }
+
+    .hero-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:22px; }
+    @media (max-width: 820px){ .hero-grid{ grid-template-columns: 1fr; } }
+
+    .bio{ color:var(--ink); font-size:16px }
+
+    /* Animated console typing */
+    .console{ font-family:"Share Tech Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; color:var(--accent); }
+    .cursor{ display:inline-block; width:10px; height:1.1em; background:var(--accent); animation: blink 1s steps(2, start) infinite; vertical-align:-2px; margin-left:4px }
+    @keyframes blink{ 50% { opacity:0 } }
+
+    /* Rotating ring widget */
+    .ring{ position:relative; width:280px; height:280px; margin:auto; }
+    .ring svg{ position:absolute; inset:0 }
+    .ring .dot{ position:absolute; inset:auto 0 0 auto; width:10px; height:10px; background:var(--accent-2); border-radius:50%; box-shadow:0 0 18px var(--accent-2); animation: orbit 14s linear infinite; transform-origin:-130px -130px }
+    @keyframes orbit{ to{ transform: rotate(360deg)} }
+
+    /* ====== WHAT I DO (animated) ====== */
+    .what{
+      display:grid; grid-template-columns:1.4fr 1fr; gap:26px; align-items:stretch;
+    }
+    @media (max-width: 1060px){ .what{ grid-template-columns:1fr; } }
+
+    .ticker{
+      position:relative; overflow:hidden; height:44px; border:1px solid var(--grid); border-radius:12px; background:var(--panel);
+      box-shadow: inset 0 0 16px rgba(125,249,255,.08);
+    }
+    .ticker .line{ position:absolute; white-space:nowrap; left:0; right:auto; will-change:transform; animation: marquee 14s linear infinite; padding:10px 18px; color:var(--muted) }
+    @keyframes marquee{ from{ transform: translateX(100%)} to{ transform: translateX(-100%)} }
+
+    .cards{ display:grid; grid-template-columns: repeat(3, 1fr); gap:18px; }
+    @media (max-width: 920px){ .cards{ grid-template-columns: 1fr; } }
+
+    .card{ position:relative; padding:22px; border-radius:14px; background:var(--panel); border:1px solid var(--grid); overflow:hidden; transition:.25s transform, .25s box-shadow }
+    .card:hover{ transform: translateY(-6px); box-shadow: 0 24px 40px rgba(0,0,0,.45) }
+    .card h4{ margin:0 0 8px; font-family:Rajdhani, sans-serif; letter-spacing:.5px }
+    .card p{ margin:0; color:var(--muted) }
+
+    .badge{ display:inline-flex; gap:8px; align-items:center; font-size:12px; color:#0b0f14; background:var(--accent); border-radius:999px; padding:6px 10px; font-weight:600 }
+
+    /* ====== PROJECTS ====== */
+    .projects{
+      display:grid; grid-template-columns: repeat(12, 1fr); gap:18px;
+    }
+    .project{
+      grid-column: span 4; min-height:280px; position:relative; border-radius:18px; overflow:hidden; border:1px solid var(--grid);
+      background: linear-gradient(180deg, rgba(125,249,255,.05), rgba(255,255,255,.02));
+      transition: .35s transform, .35s box-shadow, .35s filter;
+    }
+    .project:hover{ transform: translateY(-8px) scale(1.01); box-shadow: 0 30px 60px rgba(0,0,0,.55); filter:saturate(1.05) }
+    .project .meta{ position:absolute; inset:auto 0 0 0; background:linear-gradient( to top, rgba(11,15,20,.9), rgba(11,15,20,0) 60% ); padding:18px; }
+    .project h5{ margin:0 0 6px; font-family:Rajdhani, sans-serif; font-size:18px; letter-spacing:.6px }
+    .project .stack{ font-size:12px; color:var(--muted) }
+
+    @media (max-width: 1200px){ .project{ grid-column: span 6 } }
+    @media (max-width: 760px){ .project{ grid-column: span 12 } }
+
+    /* ====== TIMELINE ====== */
+    .timeline{ position:relative; padding-left:26px }
+    .timeline::before{ content:""; position:absolute; left:6px; top:0; bottom:0; width:2px; background:linear-gradient(var(--accent), transparent) }
+    .t-item{ position:relative; margin:18px 0; padding:14px 16px; border-radius:12px; background:var(--panel-2); border:1px solid var(--grid) }
+    .t-item::after{ content:""; position:absolute; left:-3px; top:16px; width:8px; height:8px; border-radius:50%; background:var(--accent); box-shadow:0 0 16px var(--accent) }
+
+    /* ====== GALLERY ====== */
+    .gallery{ display:grid; grid-template-columns: repeat(12, 1fr); gap:10px }
+    .pic{ grid-column: span 3; border-radius:14px; overflow:hidden; border:1px solid var(--grid); aspect-ratio: 4 / 3; position:relative }
+    .pic img{ width:100%; height:100%; object-fit:cover; filter:contrast(1.05) saturate(1.05) brightness(.9); transition:.35s transform, .35s filter }
+    .pic:hover img{ transform:scale(1.06); filter:contrast(1.15) saturate(1.15) brightness(1.02) }
+    @media (max-width: 1200px){ .pic{ grid-column: span 4 } }
+    @media (max-width: 780px){ .pic{ grid-column: span 6 } }
+    @media (max-width: 520px){ .pic{ grid-column: span 12 } }
+
+    /* ====== FOOTER ====== */
+    footer{ padding:32px; text-align:center; color:var(--muted) }
+
+    /* ====== MICRO ANIMS ====== */
+    .pulse{ animation:pulse 2.4s ease-in-out infinite }
+    @keyframes pulse{ 0%,100%{ opacity:.8 } 50%{ opacity:1 } }
+    .float{ animation:float 8s ease-in-out infinite }
+    @keyframes float{ 0%,100%{ transform:translateY(-2px)} 50%{ transform:translateY(4px)} }
+
+    /* ====== UTIL ====== */
+    .gridline{ background: repeating-linear-gradient( to bottom, rgba(125,249,255,.04) 0 2px, transparent 2px 40px), repeating-linear-gradient( to right, rgba(125,249,255,.04) 0 2px, transparent 2px 40px ); border-radius:12px }
+    .mt-8{ margin-top:32px }
+    .mt-16{ margin-top:64px }
+    .btn{ display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; background:linear-gradient(180deg, rgba(125,249,255,.15), rgba(125,249,255,.06)); border:1px solid var(--grid); color:var(--ink); text-decoration:none; font-weight:600; letter-spacing:.3px; box-shadow:inset 0 0 18px rgba(125,249,255,.12) }
+    .btn:hover{ box-shadow:inset 0 0 26px rgba(125,249,255,.22) }
+    .mono{ font-family:"Share Tech Mono", ui-monospace, Menlo, Consolas, monospace }
+    .small{ font-size:13px; color:var(--muted) }
+    .kbd{ padding:2px 6px; border-radius:6px; border:1px solid var(--grid); background:var(--panel); font-family:inherit; font-size:12px }
+
+    /* Mobile safe area for dock overlay */
+    @media (max-width: 780px){
+      #viewport{ padding-left:78px }
+      .dock{ width:78px }
+      .dock a, .dock .logo{ width:56px; height:56px }
+    }
+  </style>
 </head>
 <body>
-  <div class="starfield"></div>
-  <div class="dock">
-    <a href="#about">A</a>
-    <a href="#whatido">W</a>
-    <a href="#projects">P</a>
-    <a href="#contact">C</a>
-  </div>
+  <div class="stars"></div>
+  <div class="stars2"></div>
+  <div class="stars3"></div>
 
-  <div class="content">
-    <section id="about">
-      <h1 class="section-title">Welcome to Daigo's Portfolio</h1>
-      <p>Explore the universe of IT Helpdesk, Cybersecurity, and creative technological projects.</p>
-    </section>
+  <!-- LEFT DOCK / NAVIGATION -->
+  <aside class="dock" aria-label="Dock Navigation">
+    <div class="logo" title="Daniel // Mission Ops">DC</div>
+    <nav class="nav" id="nav">
+      <a href="#top" class="active" data-key="1" title="Flight Deck (1)">🏠</a>
+      <a href="#what" data-key="2" title="What I do (2)">🧭</a>
+      <a href="#projects" data-key="3" title="Projects (3)">🛰️</a>
+      <a href="#timeline" data-key="4" title="Timeline (4)">⏱️</a>
+      <a href="#gallery" data-key="5" title="Gallery (5)">🖼️</a>
+      <a href="#contact" data-key="6" title="Contact (6)">📡</a>
+    </nav>
+    <div class="sep"></div>
+    <div class="foot">
+      <a href="#" id="theme" title="Toggle Ambient">🌓</a>
+      <a href="#" id="mute" title="Toggle SFX">🔈</a>
+    </div>
+  </aside>
 
-    <section id="whatido">
-      <h2 class="section-title">What I Do</h2>
-      <div class="what-i-do">
-        <div class="card">
-          <img src="https://i.imgur.com/8zQ4wNe.jpg" alt="IT Helpdesk">
-          <h3 class="glow-text">IT Helpdesk</h3>
-          <p>Expert at troubleshooting, remote support, and ensuring smooth IT operations.</p>
-        </div>
-        <div class="card">
-          <img src="https://i.imgur.com/x7b9X02.jpg" alt="Cybersecurity">
-          <h3 class="glow-text">Cybersecurity</h3>
-          <p>Monitoring, securing, and defending networks and systems from threats.</p>
-        </div>
-        <div class="card">
-          <img src="https://i.imgur.com/d1K3vX9.jpg" alt="Network Engineering">
-          <h3 class="glow-text">Network Engineering</h3>
-          <p>Designing and maintaining reliable and efficient networks for any environment.</p>
-        </div>
-        <div class="card">
-          <img src="https://i.imgur.com/2O3U7Ua.jpg" alt="Automation">
-          <h3 class="glow-text">Automation</h3>
-          <p>Developing scripts and automated solutions to save time and improve productivity.</p>
-        </div>
-        <div class="card">
-          <img src="https://i.imgur.com/TU4P5uP.jpg" alt="Motorsports Tech">
-          <h3 class="glow-text">Motorsports Tech</h3>
-          <p>Combining engineering knowledge with cutting-edge motorsports applications.</p>
-        </div>
-        <div class="card">
-          <img src="https://i.imgur.com/QxE0j8S.jpg" alt="Space Tech">
-          <h3 class="glow-text">Space Tech</h3>
-          <p>Exploring the frontiers of technology and space engineering concepts.</p>
-        </div>
-      </div>
-    </section>
+  <div id="viewport">
+    <!-- ====== FLIGHT DECK / HERO ====== -->
+    <section id="top" class="section">
+      <div class="wrap">
+        <div class="hud">
+          <div class="panel glass gridline">
+            <div class="badge">MISSION OPS</div>
+            <h1 class="title-xl">Daniel Chattar</h1>
+            <p class="subtitle">IT Helpdesk • Automation • Cybersecurity fundamentals • Motorsports & aerospace enthusiast</p>
+            <p class="bio">I keep systems—and people—running. From OS deployments and user support to process automation with Python/PowerShell, I bring reliability to lean teams. I’m Portuguese (EN/ES/FR) and currently based in Luxembourg/Belgium border. Passionate about telemetry, incident response, and designing elegant internal tools.</p>
 
-    <section id="projects">
-      <h2 class="section-title">Projects</h2>
-      <div class="projects">
-        <div class="project-card">
-          <img src="https://i.imgur.com/9Zjlf6b.jpg" alt="Project 1">
-          <div class="info">
-            <h3 class="glow-text">IT Support Dashboard</h3>
-            <p>Custom dashboard to manage IT helpdesk tickets and automate reporting.</p>
+            <div class="mt-8">
+              <div class="console" aria-live="polite"><span id="type"></span><span class="cursor" aria-hidden="true"></span></div>
+            </div>
+
+            <div class="mt-8">
+              <a class="btn" href="#projects">View Projects</a>
+              <a class="btn" href="#contact">Get in touch</a>
+              <span class="small"> or press <span class="kbd">1…6</span> to navigate</span>
+            </div>
           </div>
-        </div>
-        <div class="project-card">
-          <img src="https://i.imgur.com/6T7X2oE.jpg" alt="Project 2">
-          <div class="info">
-            <h3 class="glow-text">Cybersecurity Lab</h3>
-            <p>Simulated network for testing threats, intrusion detection, and secure practices.</p>
-          </div>
-        </div>
-        <div class="project-card">
-          <img src="https://i.imgur.com/3ZL6sUG.jpg" alt="Project 3">
-          <div class="info">
-            <h3 class="glow-text">Motorsport Telemetry</h3>
-            <p>Data analysis platform for racing telemetry and performance optimization.</p>
-          </div>
-        </div>
-        <div class="project-card">
-          <img src="https://i.imgur.com/5vQEzVJ.jpg" alt="Project 4">
-          <div class="info">
-            <h3 class="glow-text">Space Mission Simulation</h3>
-            <p>Interactive 3D simulation of spacecraft systems for educational purposes.</p>
-          </div>
-        </div>
-        <div class="project-card">
-          <img src="https://i.imgur.com/pb0RJ9L.jpg" alt="Project 5">
-          <div class="info">
-            <h3 class="glow-text">Automation Scripts</h3>
-            <p>Set of scripts to automate routine IT tasks and enhance workflow efficiency.</p>
-          </div>
-        </div>
-        <div class="project-card">
-          <img src="https://i.imgur.com/jfCQJfB.jpg" alt="Project 6">
-          <div class="info">
-            <h3 class="glow-text">Network Optimization</h3>
-            <p>Tools and analytics for improving network speed, reliability, and security.</p>
+
+          <div class="panel glass">
+            <div class="ring float" aria-hidden="true">
+              <svg viewBox="0 0 300 300">
+                <defs>
+                  <linearGradient id="g1" x1="0" x2="1">
+                    <stop offset="0%" stop-color="var(--accent)" />
+                    <stop offset="100%" stop-color="var(--accent-2)" />
+                  </linearGradient>
+                </defs>
+                <circle cx="150" cy="150" r="120" fill="none" stroke="url(#g1)" stroke-width="2" opacity=".6"/>
+                <circle cx="150" cy="150" r="100" fill="none" stroke="var(--grid)" stroke-width="1"/>
+                <circle cx="150" cy="150" r="80" fill="none" stroke="var(--grid)" stroke-width="1"/>
+                <g class="pulse">
+                  <path d="M40 150 q30 -30 60 0 t60 0 t60 0 t60 0" fill="none" stroke="var(--success)" stroke-width="2"/>
+                </g>
+                <text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" fill="var(--muted)" style="font: 12px 'Share Tech Mono'">SYS HEALTH · OK</text>
+              </svg>
+              <div class="dot"></div>
+            </div>
+            <div class="small" style="text-align:center; margin-top:300px">Real‑time panel: simulated readings</div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="contact">
-      <h2 class="section-title">Contact</h2>
-      <p>Email: daniel.chattar@example.com</p>
-      <p>Phone: +352 1234 5678</p>
-      <p>Let's collaborate on something out of this world!</p>
+    <!-- ====== WHAT I DO ====== -->
+    <section id="what" class="section">
+      <div class="wrap">
+        <div class="panel glass">
+          <div class="ticker" aria-hidden="true">
+            <div class="line">Incident Response · OS Deployment · AD/Azure AD · M365/Intune · Ticketing (ServiceNow/Zendesk) · Python/PowerShell · Process Mapping · Basic Networking (DHCP/DNS/VLAN)</div>
+          </div>
+          <h2 class="title-xl" style="font-size:42px">What I Do</h2>
+          <div class="what">
+            <div>
+              <div class="cards">
+                <div class="card">
+                  <h4>Helpdesk & Service Desk</h4>
+                  <p>Level 1/2 triage, device provisioning, remote support (RDP/TeamViewer), knowledge base authoring, user education.</p>
+                </div>
+                <div class="card">
+                  <h4>Automation</h4>
+                  <p>Python + spreadsheets to eliminate repetitive tasks; PowerShell for bulk ops, log parsing and simple health checks.</p>
+                </div>
+                <div class="card">
+                  <h4>Process Reliability</h4>
+                  <p>Pragmatic SOPs and workflow tweaks that reduce friction across finance & operations.</p>
+                </div>
+                <div class="card">
+                  <h4>Microsoft 365 & Intune</h4>
+                  <p>Mailbox/admin basics, SharePoint hygiene, Intune device compliance and Autopilot deployments.</p>
+                </div>
+                <div class="card">
+                  <h4>Directory & Identity</h4>
+                  <p>AD/Azure AD user lifecycle, groups, basic conditional access concepts; security‑minded housekeeping.</p>
+                </div>
+                <div class="card">
+                  <h4>Networking Fundamentals</h4>
+                  <p>DNS, DHCP, subnets, VLANs; Wireshark for basic traffic inspection in a homelab context.</p>
+                </div>
+              </div>
+            </div>
+            <div class="gridline panel" style="min-height:260px">
+              <h4 style="margin-top:0">Recent Metrics (simulated)</h4>
+              <div class="small">SLA 7d · First Response · Resolution · CSAT</div>
+              <canvas id="chart" width="600" height="260" aria-label="Support metrics chart" role="img"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== PROJECTS ====== -->
+    <section id="projects" class="section">
+      <div class="wrap">
+        <div class="panel glass">
+          <h2 class="title-xl" style="font-size:42px">Projects</h2>
+          <div class="projects">
+            <a class="project" href="#" style="background-image:url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1600&auto=format&fit=crop'); background-size:cover; background-position:center">
+              <div class="meta">
+                <h5>Ticket Triage Console</h5>
+                <div class="stack">Flask · SQLite · ServiceNow API mock · Charts</div>
+                <p class="small">A light web app to triage/route support requests and visualize SLA—built as a training sandbox.</p>
+              </div>
+            </a>
+            <a class="project" href="#" style="background-image:url('https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?q=80&w=1600&auto=format&fit=crop'); background-size:cover; background-position:center">
+              <div class="meta">
+                <h5>Pi‑hole + Telemetry</h5>
+                <div class="stack">Raspberry Pi · Pi‑hole · Prometheus · Grafana</div>
+                <p class="small">DNS sinkhole with dashboards to monitor queries, blocklists, and suspicious spikes.</p>
+              </div>
+            </a>
+            <a class="project" href="#" style="background-image:url('https://images.unsplash.com/photo-1581091014534-6a7a3b33bd62?q=80&w=1600&auto=format&fit=crop'); background-size:cover; background-position:center">
+              <div class="meta">
+                <h5>Intune Autopilot Scripts</h5>
+                <div class="stack">PowerShell · Intune · JSON</div>
+                <p class="small">Bootstrap scripts to ready fresh devices, enforce baseline, and log actions to a central sheet.</p>
+              </div>
+            </a>
+            <a class="project" href="#" style="background-image:url('https://images.unsplash.com/photo-1517520287167-4bbf64a00d66?q=80&w=1600&auto=format&fit=crop'); background-size:cover; background-position:center">
+              <div class="meta">
+                <h5>Workflow Automations</h5>
+                <div class="stack">Python · Pandas · Google Sheets API</div>
+                <p class="small">Automated reconciliations for invoices/orders; saved hours weekly in a small SME environment.</p>
+              </div>
+            </a>
+            <a class="project" href="#" style="background-image:url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600&auto=format&fit=crop'); background-size:cover; background-position:center">
+              <div class="meta">
+                <h5>Alerting Lab</h5>
+                <div class="stack">Elasticsearch · Filebeat · Python</div>
+                <p class="small">Parses logs for anomalies; sends digest to a mailbox/Slack with suggested remediations.</p>
+              </div>
+            </a>
+            <a class="project" href="#" style="background-image:url('https://images.unsplash.com/photo-1521109464564-2fa2faa95858?q=80&w=1600&auto=format&fit=crop'); background-size:cover; background-position:center">
+              <div class="meta">
+                <h5>Service Desk KB</h5>
+                <div class="stack">Static site · Markdown · Search</div>
+                <p class="small">Concise articles for recurring fixes; built with a clean taxonomy and short video snippets.</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== TIMELINE ====== -->
+    <section id="timeline" class="section">
+      <div class="wrap">
+        <div class="panel glass">
+          <h2 class="title-xl" style="font-size:42px">Timeline</h2>
+          <div class="timeline">
+            <div class="t-item">
+              <strong>2023–2025 · Junior IT & Office Support</strong>
+              <div class="small">User support, OS deployments, automations; learned reliability under pressure.</div>
+            </div>
+            <div class="t-item">
+              <strong>2018–2023 · Administrative & Operations Assistant</strong>
+              <div class="small">Payroll assistance, order processing, client comms, document control; built spreadsheet tooling.</div>
+            </div>
+            <div class="t-item">
+              <strong>Academic · Mechanical Engineering + CS coursework</strong>
+              <div class="small">Systems thinking + coding foundations for practical tools.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== GALLERY ====== -->
+    <section id="gallery" class="section">
+      <div class="wrap">
+        <div class="panel glass">
+          <h2 class="title-xl" style="font-size:42px">Gallery</h2>
+          <div class="gallery">
+            <div class="pic"><img alt="Endurance pit lane" src="https://images.unsplash.com/photo-1520975954732-35dd22299615?q=80&w=1600&auto=format&fit=crop"></div>
+            <div class="pic"><img alt="Formula car" src="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=1600&auto=format&fit=crop"></div>
+            <div class="pic"><img alt="Space shuttle tiles" src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1600&auto=format&fit=crop"></div>
+            <div class="pic"><img alt="Server room" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1600&auto=format&fit=crop"></div>
+            <div class="pic"><img alt="MotoGP corner" src="https://images.unsplash.com/photo-1516239322121-127edfecd9f3?q=80&w=1600&auto=format&fit=crop"></div>
+            <div class="pic"><img alt="Rocket" src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=1600&auto=format&fit=crop"></div>
+            <div class="pic"><img alt="PCB closeup" src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1600&auto=format&fit=crop"></div>
+            <div class="pic"><img alt="Astronaut" src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1600&auto=format&fit=crop"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== CONTACT ====== -->
+    <section id="contact" class="section">
+      <div class="wrap">
+        <div class="panel glass">
+          <h2 class="title-xl" style="font-size:42px">Contact</h2>
+          <p class="small">Open to IT Support / Helpdesk / FinOps Operations roles in Luxembourg & Greater Region.</p>
+          <form class="gridline panel" id="form" style="display:grid; grid-template-columns: 1fr 1fr; gap:14px">
+            <label>Name<br><input required name="name" class="field"/></label>
+            <label>Email<br><input required type="email" name="email" class="field"/></label>
+            <label style="grid-column:1/-1">Message<br><textarea required name="message" rows="5" class="field"></textarea></label>
+            <div style="grid-column:1/-1; display:flex; gap:12px; align-items:center">
+              <button class="btn" type="submit">Transmit</button>
+              <span class="small" id="status"></span>
+            </div>
+          </form>
+        </div>
+        <footer>
+          © <span id="year"></span> Daniel Chattar — Mission Ops Portfolio
+        </footer>
+      </div>
     </section>
   </div>
+
+  <style>
+    .field{ width:100%; margin-top:8px; padding:12px 14px; border-radius:10px; background:var(--panel); color:var(--ink); border:1px solid var(--grid); outline:none; box-shadow:inset 0 0 16px rgba(125,249,255,.06) }
+    .field:focus{ border-color:rgba(125,249,255,.35); box-shadow:0 0 0 3px rgba(125,249,255,.12), inset 0 0 20px rgba(125,249,255,.1) }
+  </style>
+
+  <script>
+    // ====== TYPEWRITER ======
+    const lines = [
+      'BOOTSTRAP :: Initializing service desk protocols…',
+      'M365 :: Intune compliance check — pass',
+      'AD :: User lifecycle tasks queued…',
+      'AUTOMATION :: Python job executed (12 tasks saved)',
+      'NETWORK :: DNS diagnostics — nominal',
+    ];
+    let idx=0, ch=0, el; 
+    function tick(){
+      if(!el) el = document.getElementById('type');
+      if(idx < lines.length){
+        const cur = lines[idx];
+        if(ch <= cur.length){
+          el.textContent = cur.slice(0, ch++);
+        } else { idx++; ch=0; setTimeout(tick, 800); return; }
+      } else { idx=0; ch=0; el.textContent=''; }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    // ====== SIMPLE CHART (no libs) ======
+    const ctx = document.getElementById('chart').getContext('2d');
+    function drawChart(){
+      const W = ctx.canvas.width, H = ctx.canvas.height;
+      ctx.clearRect(0,0,W,H);
+      // grid
+      ctx.strokeStyle = 'rgba(125,249,255,.15)';
+      ctx.lineWidth = 1;
+      for(let x=0; x<=W; x+=50){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+      for(let y=0; y<=H; y+=50){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+      // axes
+      ctx.strokeStyle = 'rgba(255,255,255,.4)'; ctx.beginPath(); ctx.moveTo(40,H-30); ctx.lineTo(W-10,H-30); ctx.stroke();
+      // data
+      const base = H-30; const pts=[]; let x=40; const step= (W-80)/12;
+      for(let i=0;i<13;i++){ const v = base - (Math.sin((Date.now()/1200)+(i*.6))*20 + 40 + Math.random()*14); pts.push([x, v]); x+=step; }
+      ctx.beginPath(); ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent'); ctx.lineWidth=2;
+      pts.forEach((p,i)=>{ if(i===0) ctx.moveTo(p[0],p[1]); else ctx.lineTo(p[0],p[1]); }); ctx.stroke();
+      // points
+      ctx.fillStyle = 'rgba(255,209,102,.9)';
+      pts.forEach(p=>{ ctx.beginPath(); ctx.arc(p[0],p[1],2.5,0,Math.PI*2); ctx.fill(); });
+    }
+    setInterval(drawChart, 400);
+    drawChart();
+
+    // ====== NAV ACTIVE + KEYBOARD SHORTCUTS ======
+    const viewport = document.getElementById('viewport');
+    const links = Array.from(document.querySelectorAll('.dock a[href^="#"]'));
+    function setActive(){
+      const scroll = viewport.scrollTop + 120;
+      const sections = Array.from(document.querySelectorAll('.section'));
+      let current = sections[0].id;
+      for(const s of sections){ if(s.offsetTop <= scroll) current = s.id; }
+      links.forEach(a=> a.classList.toggle('active', a.getAttribute('href') === '#'+current));
+    }
+    viewport.addEventListener('scroll', setActive);
+    setActive();
+    window.addEventListener('keydown', (e)=>{
+      const k = e.key; if(/[1-6]/.test(k)){ const el = document.querySelector(`.dock a[data-key="${k}"]`); if(el){ e.preventDefault(); el.click(); }}
+    }
+      });
+
+    // smooth scroll within custom viewport
+    links.forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if(target){ e.preventDefault(); viewport.scrollTo({ top: target.offsetTop - 24, behavior:'smooth'}); }
+      });
+    });
+
+    // ====== THEME TOGGLE (ambient accent swap) ======
+    const themeBtn = document.getElementById('theme');
+    let flip=false; themeBtn.addEventListener('click', (e)=>{ e.preventDefault(); flip=!flip; document.documentElement.style.setProperty('--accent', flip?'#ff7bff':'#7df9ff'); document.documentElement.style.setProperty('--accent-2', flip?'#7bd5ff':'#ffd166'); });
+
+    // ====== MUTE (placeholder for future sfx) ======
+    document.getElementById('mute').addEventListener('click', (e)=>{ e.preventDefault(); alert('SFX system is currently silent.'); });
+
+    // ====== FORM FAKE SUBMIT ======
+    document.getElementById('form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.currentTarget).entries());
+      document.getElementById('status').textContent = 'Transmitted ✓  — Thanks, '+ (data.name || 'Commander') + '!';
+      e.currentTarget.reset();
+    });
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
