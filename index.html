@@ -1,172 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Daniel Chattar | Portfolio</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Orbitron', sans-serif;
-    }
-    body {
-      background: radial-gradient(circle at top, #0a0f1f, #000);
-      color: #fff;
-      overflow-x: hidden;
-    }
-    header {
-      text-align: center;
-      padding: 2rem;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(8px);
-    }
-    header h1 {
-      font-size: 3rem;
-      text-shadow: 0 0 10px #00f7ff, 0 0 20px #00aaff;
-      animation: flicker 3s infinite;
-    }
-    @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        text-shadow: 0 0 10px #00f7ff, 0 0 20px #00aaff;
-      }
-      20%, 24%, 55% {
-        text-shadow: none;
-      }
-    }
-    .cockpit {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 3rem;
-      background: linear-gradient(145deg, #101522, #05070d);
-      border-bottom: 2px solid #00f7ff;
-    }
-    .gauge, .blinker {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 4px solid #00f7ff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.2rem;
-      color: #00f7ff;
-      position: relative;
-      animation: rotate 6s linear infinite;
-    }
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    .blinker::after {
-      content: '';
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: red;
-      position: absolute;
-      animation: blink 1s infinite;
-    }
-    @keyframes blink {
-      0%, 50%, 100% { opacity: 1; }
-      25%, 75% { opacity: 0; }
-    }
-    section.projects {
-      padding: 4rem 2rem;
-    }
-    section.projects h2 {
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-      text-shadow: 0 0 15px #ff0080, 0 0 25px #ff00ff;
-    }
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-    .project-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(0, 247, 255, 0.4);
-      border-radius: 20px;
-      padding: 1.5rem;
-      transition: transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(#00f7ff, transparent, #ff00ff, transparent);
-      animation: spin 6s linear infinite;
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    .project-card h3, .project-card p {
-      position: relative;
-      z-index: 2;
-    }
-    .project-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px #00f7ff;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid #222;
-      background: #0a0f1f;
-    }
-    footer p {
-      font-size: 0.9rem;
-      color: #aaa;
-    }
-  </style>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daigo's Space Odyssey Portfolio</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #f0f0f0;
+    background: linear-gradient(to bottom, #000000, #0a0a0a);
+    overflow-x: hidden;
+  }
+
+  .stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png');
+    z-index: -1;
+    animation: twinkle 10s infinite alternate;
+  }
+
+  @keyframes twinkle {
+    0% {opacity: 0.7;}
+    50% {opacity: 1;}
+    100% {opacity: 0.7;}
+  }
+
+  header {
+    text-align: center;
+    padding: 4rem 1rem 2rem 1rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-weight: 200;
+    font-size: 1.5rem;
+    margin-top: 0;
+  }
+
+  .projects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .project-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    width: 300px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.6s ease, box-shadow 0.6s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card:hover {
+    transform: translateY(-20px) rotateX(10deg);
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+  }
+
+  .project-card img {
+    width: 80%;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+  }
+
+  footer {
+    text-align: center;
+    padding: 3rem 1rem;
+    font-size: 0.9rem;
+    color: #888;
+  }
+</style>
 </head>
 <body>
+  <div class="stars"></div>
+
   <header>
-    <h1>Daniel Chattar — IT & Cybersecurity Explorer</h1>
+    <h1>Daigo's Odyssey</h1>
+    <h2>Exploring IT & Cybersecurity Projects Beyond the Horizon</h2>
   </header>
-  
-  <div class="cockpit">
-    <div class="gauge">CPU</div>
-    <div class="blinker"></div>
-    <div class="gauge">NET</div>
-  </div>
-  
+
   <section class="projects">
-    <h2>Featured Missions</h2>
-    <div class="project-grid">
-      <div class="project-card">
-        <h3>Helpdesk Galaxy</h3>
-        <p>Resolved interstellar tickets with Active Directory, Microsoft 365, and Intune at light speed.</p>
-      </div>
-      <div class="project-card">
-        <h3>Cyber Shield</h3>
-        <p>Implemented firewall rules and intrusion detection, protecting spacecraft from alien malware invasions.</p>
-      </div>
-      <div class="project-card">
-        <h3>Network Nebula</h3>
-        <p>Configured VLANs, DNS, and routing to ensure seamless galaxy-wide communication.</p>
-      </div>
-      <div class="project-card">
-        <h3>Incident Warp Drive</h3>
-        <p>Led critical incident analysis and response coordination to restore warp systems in record time.</p>
-      </div>
+    <div class="project-card">
+      <img src="https://via.placeholder.com/250x150.png?text=IT+Helpdesk+Portal" alt="Project 1">
+      <h3>IT Helpdesk Portal</h3>
+      <p>Interactive system to manage tickets efficiently with automated prioritization.</p>
+    </div>
+    <div class="project-card">
+      <img src="https://via.placeholder.com/250x150.png?text=Cybersecurity+Tool" alt="Project 2">
+      <h3>Cybersecurity Tool</h3>
+      <p>Real-time threat detection dashboard with network visualization.</p>
+    </div>
+    <div class="project-card">
+      <img src="https://via.placeholder.com/250x150.png?text=Motorsport+Telemetry" alt="Project 3">
+      <h3>Motorsport Telemetry</h3>
+      <p>Data analytics for high-performance vehicles with live dashboards.</p>
     </div>
   </section>
 
   <footer>
-    <p>© 2025 Daniel Chattar | Designed like a space shuttle cockpit 🚀</p>
+    &copy; 2025 Daigo. Inspired by a bunch of things, honestly.
   </footer>
 </body>
 </html>
