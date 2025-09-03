@@ -6,202 +6,226 @@
 <title>Daigo-sama's Space Odyssey Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 <style>
-    body, html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        font-family: 'Orbitron', sans-serif;
-        background: black;
-        overflow-x: hidden;
-        color: #ffffff;
-    }
-
-    /* Starfield layers */
-    .stars, .stars2, .stars3 {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        background: transparent;
-        z-index: -1;
-        pointer-events: none;
-    }
-    .stars {background: url('https://i.ibb.co/4KQ6ZbY/stars1.png') repeat; animation: starMove 100s linear infinite;}
-    .stars2 {background: url('https://i.ibb.co/7kq3xwb/stars2.png') repeat; animation: starMove 150s linear infinite;}
-    .stars3 {background: url('https://i.ibb.co/Yyf3y99/stars3.png') repeat; animation: starMove 200s linear infinite;}
-
-    @keyframes starMove {
-        from {background-position: 0 0;}
-        to {background-position: -10000px 10000px;}
-    }
-
-    /* Dock */
-    .dock {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 80px;
-        height: 100%;
-        background: rgba(20, 20, 20, 0.95);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 20px;
-        box-shadow: 2px 0 15px rgba(0,0,0,0.7);
-        z-index: 10;
-    }
-    .dock a {
-        color: #0ff;
-        text-decoration: none;
-        margin: 20px 0;
-        font-size: 14px;
-        transition: transform 0.3s;
-    }
-    .dock a:hover {transform: scale(1.3);}
-
-    /* Main Content */
-    .content {
-        margin-left: 100px;
-        padding: 40px;
-    }
-
-    h1, h2 {
-        text-align: left;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-    }
-
-    /* What I Do section */
-    .what-i-do {
-        margin-top: 50px;
-        padding: 30px;
-        border-left: 5px solid #0ff;
-        animation: glowText 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes glowText {
-        0% {text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;}
-        50% {text-shadow: 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff;}
-        100% {text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;}
-    }
-
-    /* Projects */
-    .projects {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 30px;
-        margin-top: 50px;
-    }
-    .project {
-        background: rgba(30,30,30,0.9);
-        padding: 20px;
-        border-radius: 10px;
-        overflow: hidden;
-        position: relative;
-        transition: transform 0.6s ease, box-shadow 0.6s ease;
-    }
-    .project:hover {
-        transform: translateY(-10px) rotateY(10deg);
-        box-shadow: 0 0 50px #0ff;
-    }
-    .project img {
-        width: 100%;
-        border-radius: 10px;
-        margin-bottom: 15px;
-        animation: float 4s ease-in-out infinite;
-    }
-
-    @keyframes float {
-        0%,100% {transform: translateY(0);}
-        50% {transform: translateY(-10px);}
-    }
-
-    /* Cool hover effect for project titles */
-    .project h3 {
-        color: #0ff;
-        margin: 0 0 10px;
-        font-size: 18px;
-        transition: color 0.3s, text-shadow 0.3s;
-    }
-    .project:hover h3 {
-        color: #fff;
-        text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
-    }
-
-    /* Fluid transitions between sections */
-    section {opacity:0; transform: translateY(50px); animation: fadeIn 1s forwards;}
-    section:nth-of-type(1) {animation-delay: 0.2s;}
-    section:nth-of-type(2) {animation-delay: 0.5s;}
-    section:nth-of-type(3) {animation-delay: 0.8s;}
-
-    @keyframes fadeIn {
-        to {opacity:1; transform: translateY(0);}
-    }
-
+  body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background: radial-gradient(ellipse at bottom, #0b0c10 0%, #1f2833 100%);
+    color: #c5c6c7;
+    overflow-x: hidden;
+  }
+  .dock {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 80px;
+    height: 100vh;
+    background: rgba(15, 15, 20, 0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    z-index: 1000;
+  }
+  .dock a {
+    margin: 20px 0;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1f2833;
+    border-radius: 50%;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .dock a:hover {
+    transform: scale(1.3);
+    box-shadow: 0 0 20px #66fcf1, 0 0 40px #45a29e;
+  }
+  .content {
+    margin-left: 100px;
+    padding: 50px;
+  }
+  section {
+    min-height: 100vh;
+    position: relative;
+  }
+  .starfield {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: url('https://i.imgur.com/9lQZfXh.jpg') repeat;
+    background-size: cover;
+    z-index: -1;
+    animation: starsMove 200s linear infinite;
+  }
+  @keyframes starsMove {
+    from {background-position: 0 0;}
+    to {background-position: -10000px 5000px;}
+  }
+  .section-title {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #66fcf1;
+    text-shadow: 0 0 20px #45a29e;
+  }
+  .what-i-do {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+  .card {
+    background: rgba(31, 40, 51, 0.85);
+    border-radius: 20px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.5s, box-shadow 0.5s;
+  }
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 40px #66fcf1;
+  }
+  .card img {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 15px;
+  }
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+  }
+  .project-card {
+    background: rgba(31, 40, 51, 0.9);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.5s, box-shadow 0.5s;
+    cursor: pointer;
+  }
+  .project-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 50px #66fcf1;
+  }
+  .project-card img {
+    width: 100%;
+    display: block;
+  }
+  .project-card .info {
+    padding: 20px;
+  }
+  .glow-text {
+    color: #66fcf1;
+    text-shadow: 0 0 10px #66fcf1, 0 0 20px #45a29e;
+  }
 </style>
 </head>
 <body>
-<div class="stars"></div>
-<div class="stars2"></div>
-<div class="stars3"></div>
+  <div class="starfield"></div>
+  <div class="dock">
+    <a href="#about">A</a>
+    <a href="#whatido">W</a>
+    <a href="#projects">P</a>
+    <a href="#contact">C</a>
+  </div>
 
-<div class="dock">
-    <a href="#about">About</a>
-    <a href="#what-i-do">What I Do</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-</div>
-
-<div class="content">
+  <div class="content">
     <section id="about">
-        <h1>Daigo-sama</h1>
-        <p>Welcome aboard my Space Odyssey portfolio. Navigate the cosmos of my work in IT Helpdesk, Cybersecurity, and my passions in motorsports and space exploration.</p>
+      <h1 class="section-title">Welcome to Daigo's Portfolio</h1>
+      <p>Explore the universe of IT Helpdesk, Cybersecurity, and creative technological projects.</p>
     </section>
 
-    <section id="what-i-do" class="what-i-do">
-        <h2>What I Do</h2>
-        <p>I troubleshoot systems, secure networks, and solve complex IT challenges. I also explore innovative web design, creating experiences that blend technology, aesthetics, and interactivity.</p>
+    <section id="whatido">
+      <h2 class="section-title">What I Do</h2>
+      <div class="what-i-do">
+        <div class="card">
+          <img src="https://i.imgur.com/8zQ4wNe.jpg" alt="IT Helpdesk">
+          <h3 class="glow-text">IT Helpdesk</h3>
+          <p>Expert at troubleshooting, remote support, and ensuring smooth IT operations.</p>
+        </div>
+        <div class="card">
+          <img src="https://i.imgur.com/x7b9X02.jpg" alt="Cybersecurity">
+          <h3 class="glow-text">Cybersecurity</h3>
+          <p>Monitoring, securing, and defending networks and systems from threats.</p>
+        </div>
+        <div class="card">
+          <img src="https://i.imgur.com/d1K3vX9.jpg" alt="Network Engineering">
+          <h3 class="glow-text">Network Engineering</h3>
+          <p>Designing and maintaining reliable and efficient networks for any environment.</p>
+        </div>
+        <div class="card">
+          <img src="https://i.imgur.com/2O3U7Ua.jpg" alt="Automation">
+          <h3 class="glow-text">Automation</h3>
+          <p>Developing scripts and automated solutions to save time and improve productivity.</p>
+        </div>
+        <div class="card">
+          <img src="https://i.imgur.com/TU4P5uP.jpg" alt="Motorsports Tech">
+          <h3 class="glow-text">Motorsports Tech</h3>
+          <p>Combining engineering knowledge with cutting-edge motorsports applications.</p>
+        </div>
+        <div class="card">
+          <img src="https://i.imgur.com/QxE0j8S.jpg" alt="Space Tech">
+          <h3 class="glow-text">Space Tech</h3>
+          <p>Exploring the frontiers of technology and space engineering concepts.</p>
+        </div>
+      </div>
     </section>
 
-    <section id="projects" class="projects">
-        <div class="project">
-            <img src="https://i.ibb.co/1rn4jkg/it1.jpg" alt="IT Helpdesk Project">
-            <h3>Network Security Audit</h3>
-            <p>Conducted a full audit of company networks, identifying vulnerabilities and implementing robust cybersecurity measures.</p>
+    <section id="projects">
+      <h2 class="section-title">Projects</h2>
+      <div class="projects">
+        <div class="project-card">
+          <img src="https://i.imgur.com/9Zjlf6b.jpg" alt="Project 1">
+          <div class="info">
+            <h3 class="glow-text">IT Support Dashboard</h3>
+            <p>Custom dashboard to manage IT helpdesk tickets and automate reporting.</p>
+          </div>
         </div>
-        <div class="project">
-            <img src="https://i.ibb.co/b3k7DkS/helpdesk.jpg" alt="Helpdesk Project">
-            <h3>IT Helpdesk Management</h3>
-            <p>Developed a ticketing system and workflow automation, increasing resolution speed by 45%.</p>
+        <div class="project-card">
+          <img src="https://i.imgur.com/6T7X2oE.jpg" alt="Project 2">
+          <div class="info">
+            <h3 class="glow-text">Cybersecurity Lab</h3>
+            <p>Simulated network for testing threats, intrusion detection, and secure practices.</p>
+          </div>
         </div>
-        <div class="project">
-            <img src="https://i.ibb.co/5M2hFh0/cyber.jpg" alt="Cybersecurity Project">
-            <h3>Phishing Simulation</h3>
-            <p>Implemented company-wide phishing simulations to educate employees and reduce risk of security breaches.</p>
+        <div class="project-card">
+          <img src="https://i.imgur.com/3ZL6sUG.jpg" alt="Project 3">
+          <div class="info">
+            <h3 class="glow-text">Motorsport Telemetry</h3>
+            <p>Data analysis platform for racing telemetry and performance optimization.</p>
+          </div>
         </div>
-        <div class="project">
-            <img src="https://i.ibb.co/fx1TJ0c/motorsport.jpg" alt="Motorsport Project">
-            <h3>Race Data Analysis</h3>
-            <p>Analyzed telemetry data to optimize car performance and improve race strategies in motorsport projects.</p>
+        <div class="project-card">
+          <img src="https://i.imgur.com/5vQEzVJ.jpg" alt="Project 4">
+          <div class="info">
+            <h3 class="glow-text">Space Mission Simulation</h3>
+            <p>Interactive 3D simulation of spacecraft systems for educational purposes.</p>
+          </div>
         </div>
-        <div class="project">
-            <img src="https://i.ibb.co/NtzRQH3/space.jpg" alt="Space Project">
-            <h3>Space Simulation Interface</h3>
-            <p>Designed an interactive cockpit interface simulation, blending UI/UX principles with aerospace aesthetics.</p>
+        <div class="project-card">
+          <img src="https://i.imgur.com/pb0RJ9L.jpg" alt="Project 5">
+          <div class="info">
+            <h3 class="glow-text">Automation Scripts</h3>
+            <p>Set of scripts to automate routine IT tasks and enhance workflow efficiency.</p>
+          </div>
         </div>
-        <div class="project">
-            <img src="https://i.ibb.co/4S0P8dk/web.jpg" alt="Web Design Project">
-            <h3>Creative Web Portfolios</h3>
-            <p>Built highly interactive web experiences combining smooth animations, parallax effects, and artistic flair.</p>
+        <div class="project-card">
+          <img src="https://i.imgur.com/jfCQJfB.jpg" alt="Project 6">
+          <div class="info">
+            <h3 class="glow-text">Network Optimization</h3>
+            <p>Tools and analytics for improving network speed, reliability, and security.</p>
+          </div>
         </div>
+      </div>
     </section>
 
     <section id="contact">
-        <h2>Contact</h2>
-        <p>Reach me at <a href="mailto:danielgmr@proton.me" style="color:#0ff;">danielgmr@proton.me</a></p>
+      <h2 class="section-title">Contact</h2>
+      <p>Email: daniel.chattar@example.com</p>
+      <p>Phone: +352 1234 5678</p>
+      <p>Let's collaborate on something out of this world!</p>
     </section>
-</div>
-
+  </div>
 </body>
 </html>
