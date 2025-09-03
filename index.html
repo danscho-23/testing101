@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daniel Chattar - Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0d0d0d, #1a1a2e, #16213e);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 4rem 2rem;
+      animation: fadeIn 2s ease-in;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #bbb;
+    }
+
+    section {
+      padding: 4rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: slideUp 1s forwards;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .card h3 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      background: linear-gradient(90deg, #ff4e50, #f9d423);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .card p {
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Daniel Chattar</h1>
+    <p>Exploring Space & Automobile Engineering | Personal Projects & Ideas</p>
+  </header>
+
+  <section>
+    <h2 style="margin-bottom: 2rem; text-align:center;">Projects</h2>
+    <div class="projects">
+      <div class="card">
+        <h3>Satellite Simulation</h3>
+        <p>Developing orbital mechanics models for satellite positioning and control systems.</p>
+      </div>
+
+      <div class="card">
+        <h3>Smart Car Dashboard</h3>
+        <p>Designing an intuitive and minimal dashboard interface for next-gen vehicles.</p>
+      </div>
+
+      <div class="card">
+        <h3>AI Traffic Flow</h3>
+        <p>Using artificial intelligence to optimize traffic signals and reduce congestion.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Daniel Chattar | Designed with 🚀 and ⚙️</p>
+  </footer>
+</body>
+</html>
