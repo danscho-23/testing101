@@ -3,127 +3,170 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Daniel Chattar - Portfolio</title>
+  <title>Daniel Chattar | Portfolio</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Orbitron', sans-serif;
     }
-
     body {
-      background: linear-gradient(135deg, #0d0d0d, #1a1a2e, #16213e);
+      background: radial-gradient(circle at top, #0a0f1f, #000);
       color: #fff;
-      min-height: 100vh;
       overflow-x: hidden;
     }
-
     header {
       text-align: center;
-      padding: 4rem 2rem;
-      animation: fadeIn 2s ease-in;
+      padding: 2rem;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
     }
-
     header h1 {
       font-size: 3rem;
-      margin-bottom: 1rem;
-      background: linear-gradient(90deg, #00c6ff, #0072ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px #00f7ff, 0 0 20px #00aaff;
+      animation: flicker 3s infinite;
     }
-
-    header p {
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        text-shadow: 0 0 10px #00f7ff, 0 0 20px #00aaff;
+      }
+      20%, 24%, 55% {
+        text-shadow: none;
+      }
+    }
+    .cockpit {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 3rem;
+      background: linear-gradient(145deg, #101522, #05070d);
+      border-bottom: 2px solid #00f7ff;
+    }
+    .gauge, .blinker {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #00f7ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-size: 1.2rem;
-      color: #bbb;
+      color: #00f7ff;
+      position: relative;
+      animation: rotate 6s linear infinite;
     }
-
-    section {
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .blinker::after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: red;
+      position: absolute;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0; }
+    }
+    section.projects {
       padding: 4rem 2rem;
-      max-width: 1000px;
-      margin: auto;
-      opacity: 0;
-      transform: translateY(50px);
-      animation: slideUp 1s forwards;
     }
-
-    .projects {
+    section.projects h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 15px #ff0080, 0 0 25px #ff00ff;
+    }
+    .project-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
     }
-
-    .card {
+    .project-card {
       background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 247, 255, 0.4);
       border-radius: 20px;
-      padding: 2rem;
+      padding: 1.5rem;
       transition: transform 0.3s, box-shadow 0.3s;
       cursor: pointer;
+      position: relative;
+      overflow: hidden;
     }
-
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(#00f7ff, transparent, #ff00ff, transparent);
+      animation: spin 6s linear infinite;
     }
-
-    .card h3 {
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-      background: linear-gradient(90deg, #ff4e50, #f9d423);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
-
-    .card p {
-      font-size: 1rem;
-      color: #ccc;
+    .project-card h3, .project-card p {
+      position: relative;
+      z-index: 2;
     }
-
+    .project-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #00f7ff;
+    }
     footer {
       text-align: center;
       padding: 2rem;
+      border-top: 1px solid #222;
+      background: #0a0f1f;
+    }
+    footer p {
       font-size: 0.9rem;
-      color: #888;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes slideUp {
-      to { opacity: 1; transform: translateY(0); }
+      color: #aaa;
     }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
-    <h1>Daniel Chattar</h1>
-    <p>Exploring Space & Automobile Engineering | Personal Projects & Ideas</p>
+    <h1>Daniel Chattar — IT & Cybersecurity Explorer</h1>
   </header>
-
-  <section>
-    <h2 style="margin-bottom: 2rem; text-align:center;">Projects</h2>
-    <div class="projects">
-      <div class="card">
-        <h3>Satellite Simulation</h3>
-        <p>Developing orbital mechanics models for satellite positioning and control systems.</p>
+  
+  <div class="cockpit">
+    <div class="gauge">CPU</div>
+    <div class="blinker"></div>
+    <div class="gauge">NET</div>
+  </div>
+  
+  <section class="projects">
+    <h2>Featured Missions</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <h3>Helpdesk Galaxy</h3>
+        <p>Resolved interstellar tickets with Active Directory, Microsoft 365, and Intune at light speed.</p>
       </div>
-
-      <div class="card">
-        <h3>Smart Car Dashboard</h3>
-        <p>Designing an intuitive and minimal dashboard interface for next-gen vehicles.</p>
+      <div class="project-card">
+        <h3>Cyber Shield</h3>
+        <p>Implemented firewall rules and intrusion detection, protecting spacecraft from alien malware invasions.</p>
       </div>
-
-      <div class="card">
-        <h3>AI Traffic Flow</h3>
-        <p>Using artificial intelligence to optimize traffic signals and reduce congestion.</p>
+      <div class="project-card">
+        <h3>Network Nebula</h3>
+        <p>Configured VLANs, DNS, and routing to ensure seamless galaxy-wide communication.</p>
+      </div>
+      <div class="project-card">
+        <h3>Incident Warp Drive</h3>
+        <p>Led critical incident analysis and response coordination to restore warp systems in record time.</p>
       </div>
     </div>
   </section>
 
   <footer>
-    <p>© 2025 Daniel Chattar | Designed with 🚀 and ⚙️</p>
+    <p>© 2025 Daniel Chattar | Designed like a space shuttle cockpit 🚀</p>
   </footer>
 </body>
 </html>
