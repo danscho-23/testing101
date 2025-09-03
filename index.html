@@ -3,130 +3,205 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daigo-sama | Space Odyssey Portfolio</title>
+<title>Daigo-sama's Space Odyssey Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  /* Base Styles */
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { height: 100%; font-family: 'Orbitron', sans-serif; overflow-x: hidden; background: radial-gradient(#000010, #000022); color: #e0e0ff; }
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Orbitron', sans-serif;
+        background: black;
+        overflow-x: hidden;
+        color: #ffffff;
+    }
 
-  /* Dock on left */
-  #dock { position: fixed; top: 0; left: 0; width: 80px; height: 100%; background: rgba(10,10,30,0.85); display: flex; flex-direction: column; align-items: center; padding-top: 20px; z-index: 1000; }
-  #dock img { width: 50px; margin: 20px 0; cursor: pointer; transition: transform 0.3s; }
-  #dock img:hover { transform: scale(1.2); }
+    /* Starfield layers */
+    .stars, .stars2, .stars3 {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: transparent;
+        z-index: -1;
+        pointer-events: none;
+    }
+    .stars {background: url('https://i.ibb.co/4KQ6ZbY/stars1.png') repeat; animation: starMove 100s linear infinite;}
+    .stars2 {background: url('https://i.ibb.co/7kq3xwb/stars2.png') repeat; animation: starMove 150s linear infinite;}
+    .stars3 {background: url('https://i.ibb.co/Yyf3y99/stars3.png') repeat; animation: starMove 200s linear infinite;}
 
-  /* Sections */
-  section { padding: 100px 100px 100px 120px; min-height: 100vh; position: relative; }
-  .section-title { font-size: 3em; margin-bottom: 20px; animation: fadeInDown 2s ease forwards; opacity: 0; }
-  .section-content { display: flex; flex-wrap: wrap; gap: 20px; animation: fadeIn 2s ease forwards; opacity: 0; }
+    @keyframes starMove {
+        from {background-position: 0 0;}
+        to {background-position: -10000px 10000px;}
+    }
 
-  /* Project Card */
-  .project { background: rgba(10,10,30,0.8); border: 1px solid #4040ff55; border-radius: 15px; padding: 20px; flex: 1 1 calc(33% - 40px); min-width: 280px; backdrop-filter: blur(10px); transition: transform 0.5s, box-shadow 0.5s; }
-  .project:hover { transform: translateY(-10px); box-shadow: 0 0 50px #4040ffaa; }
-  .project img { width: 100%; border-radius: 10px; margin-bottom: 10px; }
-  .project-title { font-size: 1.5em; margin-bottom: 10px; }
+    /* Dock */
+    .dock {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 80px;
+        height: 100%;
+        background: rgba(20, 20, 20, 0.95);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+        box-shadow: 2px 0 15px rgba(0,0,0,0.7);
+        z-index: 10;
+    }
+    .dock a {
+        color: #0ff;
+        text-decoration: none;
+        margin: 20px 0;
+        font-size: 14px;
+        transition: transform 0.3s;
+    }
+    .dock a:hover {transform: scale(1.3);}
 
-  /* Animated "What I Do" */
-  #whatido { display: flex; flex-direction: column; gap: 20px; }
-  .skill { font-size: 1.5em; color: #a0d0ff; animation: glowText 3s infinite alternate; }
+    /* Main Content */
+    .content {
+        margin-left: 100px;
+        padding: 40px;
+    }
 
-  /* Starfield */
-  #stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+    h1, h2 {
+        text-align: left;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
 
-  /* Animations */
-  @keyframes fadeInDown { 0% { opacity: 0; transform: translateY(-50px); } 100% { opacity: 1; transform: translateY(0); } }
-  @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
-  @keyframes glowText { 0% { text-shadow: 0 0 5px #40f, 0 0 10px #80f; } 100% { text-shadow: 0 0 20px #80f, 0 0 40px #40f; } }
+    /* What I Do section */
+    .what-i-do {
+        margin-top: 50px;
+        padding: 30px;
+        border-left: 5px solid #0ff;
+        animation: glowText 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowText {
+        0% {text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;}
+        50% {text-shadow: 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff;}
+        100% {text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;}
+    }
+
+    /* Projects */
+    .projects {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+    }
+    .project {
+        background: rgba(30,30,30,0.9);
+        padding: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+        transition: transform 0.6s ease, box-shadow 0.6s ease;
+    }
+    .project:hover {
+        transform: translateY(-10px) rotateY(10deg);
+        box-shadow: 0 0 50px #0ff;
+    }
+    .project img {
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%,100% {transform: translateY(0);}
+        50% {transform: translateY(-10px);}
+    }
+
+    /* Cool hover effect for project titles */
+    .project h3 {
+        color: #0ff;
+        margin: 0 0 10px;
+        font-size: 18px;
+        transition: color 0.3s, text-shadow 0.3s;
+    }
+    .project:hover h3 {
+        color: #fff;
+        text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+    }
+
+    /* Fluid transitions between sections */
+    section {opacity:0; transform: translateY(50px); animation: fadeIn 1s forwards;}
+    section:nth-of-type(1) {animation-delay: 0.2s;}
+    section:nth-of-type(2) {animation-delay: 0.5s;}
+    section:nth-of-type(3) {animation-delay: 0.8s;}
+
+    @keyframes fadeIn {
+        to {opacity:1; transform: translateY(0);}
+    }
+
 </style>
 </head>
 <body>
+<div class="stars"></div>
+<div class="stars2"></div>
+<div class="stars3"></div>
 
-<div id="dock">
-  <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" title="Home" onclick="document.getElementById('home').scrollIntoView({behavior: 'smooth'});">
-  <img src="https://img.icons8.com/ios-filled/50/ffffff/briefcase.png" title="Projects" onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'});">
-  <img src="https://img.icons8.com/ios-filled/50/ffffff/rocket.png" title="Skills" onclick="document.getElementById('skills').scrollIntoView({behavior: 'smooth'});">
-  <img src="https://img.icons8.com/ios-filled/50/ffffff/contact-card.png" title="Contact" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'});">
+<div class="dock">
+    <a href="#about">About</a>
+    <a href="#what-i-do">What I Do</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
 </div>
 
-<div id="stars"></div>
+<div class="content">
+    <section id="about">
+        <h1>Daigo-sama</h1>
+        <p>Welcome aboard my Space Odyssey portfolio. Navigate the cosmos of my work in IT Helpdesk, Cybersecurity, and my passions in motorsports and space exploration.</p>
+    </section>
 
-<section id="home">
-  <h1 class="section-title">Welcome to Daigo-sama's Space Odyssey Portfolio</h1>
-  <p class="section-content">Explore IT, cybersecurity, and motorsport projects through an immersive cosmic journey.</p>
-</section>
+    <section id="what-i-do" class="what-i-do">
+        <h2>What I Do</h2>
+        <p>I troubleshoot systems, secure networks, and solve complex IT challenges. I also explore innovative web design, creating experiences that blend technology, aesthetics, and interactivity.</p>
+    </section>
 
-<section id="whatido">
-  <h2 class="section-title">What I Do</h2>
-  <div id="skills">
-    <div class="skill">IT Helpdesk & Support</div>
-    <div class="skill">Cybersecurity & Ethical Hacking</div>
-    <div class="skill">Network Administration</div>
-    <div class="skill">Web Development & Design</div>
-    <div class="skill">Automation & Cloud Solutions</div>
-    <div class="skill">Motorsports Data Analysis</div>
-  </div>
-</section>
+    <section id="projects" class="projects">
+        <div class="project">
+            <img src="https://i.ibb.co/1rn4jkg/it1.jpg" alt="IT Helpdesk Project">
+            <h3>Network Security Audit</h3>
+            <p>Conducted a full audit of company networks, identifying vulnerabilities and implementing robust cybersecurity measures.</p>
+        </div>
+        <div class="project">
+            <img src="https://i.ibb.co/b3k7DkS/helpdesk.jpg" alt="Helpdesk Project">
+            <h3>IT Helpdesk Management</h3>
+            <p>Developed a ticketing system and workflow automation, increasing resolution speed by 45%.</p>
+        </div>
+        <div class="project">
+            <img src="https://i.ibb.co/5M2hFh0/cyber.jpg" alt="Cybersecurity Project">
+            <h3>Phishing Simulation</h3>
+            <p>Implemented company-wide phishing simulations to educate employees and reduce risk of security breaches.</p>
+        </div>
+        <div class="project">
+            <img src="https://i.ibb.co/fx1TJ0c/motorsport.jpg" alt="Motorsport Project">
+            <h3>Race Data Analysis</h3>
+            <p>Analyzed telemetry data to optimize car performance and improve race strategies in motorsport projects.</p>
+        </div>
+        <div class="project">
+            <img src="https://i.ibb.co/NtzRQH3/space.jpg" alt="Space Project">
+            <h3>Space Simulation Interface</h3>
+            <p>Designed an interactive cockpit interface simulation, blending UI/UX principles with aerospace aesthetics.</p>
+        </div>
+        <div class="project">
+            <img src="https://i.ibb.co/4S0P8dk/web.jpg" alt="Web Design Project">
+            <h3>Creative Web Portfolios</h3>
+            <p>Built highly interactive web experiences combining smooth animations, parallax effects, and artistic flair.</p>
+        </div>
+    </section>
 
-<section id="projects">
-  <h2 class="section-title">Projects</h2>
-  <div class="section-content">
-    <div class="project">
-      <img src="https://source.unsplash.com/400x200/?cybersecurity" alt="Cybersecurity Project">
-      <div class="project-title">Network Security Simulation</div>
-      <p>Designed an advanced simulated environment to practice intrusion detection and firewall setups.</p>
-    </div>
-    <div class="project">
-      <img src="https://source.unsplash.com/400x200/?server-room" alt="IT Helpdesk Project">
-      <div class="project-title">Automated IT Ticket System</div>
-      <p>Implemented a streamlined ticketing system for IT support requests, improving response times by 40%.</p>
-    </div>
-    <div class="project">
-      <img src="https://source.unsplash.com/400x200/?motorsport" alt="Motorsport Project">
-      <div class="project-title">Motorsport Telemetry Dashboard</div>
-      <p>Developed a dashboard to monitor live car telemetry data and optimize race strategy in real time.</p>
-    </div>
-    <div class="project">
-      <img src="https://source.unsplash.com/400x200/?space" alt="Space IT Project">
-      <div class="project-title">Space Data Visualization</div>
-      <p>Created immersive 3D visualizations for satellite data streams, enhancing analysis efficiency.</p>
-    </div>
-    <div class="project">
-      <img src="https://source.unsplash.com/400x200/?computer" alt="Web Project">
-      <div class="project-title">Interactive Personal Website</div>
-      <p>Designed this very portfolio with full animations, responsive design, and a cosmic aesthetic.</p>
-    </div>
-    <div class="project">
-      <img src="https://source.unsplash.com/400x200/?rocket" alt="Automation Project">
-      <div class="project-title">Automation Scripts Suite</div>
-      <p>Implemented Python and Bash scripts for automating system checks and cloud deployment tasks.</p>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <h2 class="section-title">Contact Me</h2>
-  <p class="section-content">Email: daigo@example.com<br>LinkedIn: <a href="#" style="color:#a0d0ff;">linkedin.com/in/daigo</a><br>GitHub: <a href="#" style="color:#a0d0ff;">github.com/daigo</a></p>
-</section>
-
-<script>
-  // Starfield animation
-  const stars = document.getElementById('stars');
-  const numStars = 200;
-  for(let i=0;i<numStars;i++){
-    let star = document.createElement('div');
-    star.style.position = 'absolute';
-    star.style.width = `${Math.random()*2+1}px`;
-    star.style.height = star.style.width;
-    star.style.background = 'white';
-    star.style.top = `${Math.random()*100}%`;
-    star.style.left = `${Math.random()*100}%`;
-    star.style.opacity = Math.random();
-    star.style.borderRadius = '50%';
-    star.style.animation = `twinkle ${Math.random()*5+2}s infinite alternate`;
-    stars.appendChild(star);
-  }
-</script>
-<style>@keyframes twinkle {0%{opacity:0.2}100%{opacity:1}}</style>
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Reach me at <a href="mailto:danielgmr@proton.me" style="color:#0ff;">danielgmr@proton.me</a></p>
+    </section>
+</div>
 
 </body>
 </html>
